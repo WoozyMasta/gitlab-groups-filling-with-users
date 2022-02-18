@@ -24,7 +24,7 @@ RUN set -eux && \
     pip install --no-cache-dir --upgrade wheel && \
     pip install --no-cache-dir --upgrade --requirement requirements.txt
 
-# Create generator image
+# Create image
 # ----------------------
 FROM $DOCKERFILE_BASE_IMAGE:$DOCKERFILE_BASE_TAG
 
@@ -32,4 +32,4 @@ WORKDIR /app
 COPY --from=build /app /app
 ENV PATH "/app/.venv/bin:$PATH"
 
-ENTRYPOINT ["/app/generator.py"]
+ENTRYPOINT ["/app/app.py"]
