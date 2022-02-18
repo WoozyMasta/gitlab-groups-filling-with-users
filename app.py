@@ -60,7 +60,7 @@ class env(object):
             return self.value
 
         logging.fatal(f'Required environment variable "{self.key}" not set!')
-        sys.exit()
+        sys.exit(1)
 
     def int(self) -> int:
         """
@@ -120,10 +120,10 @@ def login_gitlab(gitlab_url: str, gitlab_token: str) -> object:
     except gitlab.exceptions.GitlabAuthenticationError as e:
         logging.fatal(
             f'Can\'t login to GitLab "{gitlab_url}" {e.error_message}')
-        sys.exit()
+        sys.exit(1)
     except Exception as e:
         logging.fatal(f'Can\'t connect to GitLab "{gitlab_url}" {e}')
-        sys.exit()
+        sys.exit(1)
 
     logging.info(f'Success logged in Gitlab "{gitlab_url}"')
     return gl
@@ -148,7 +148,11 @@ def main():
                 users.pop(i)
             else:
                 logging.fatal(f'Error check user "{val}" in GitLab {e}')
-                sys.exit()
+                sys.exit(1)
+
+    if len(users) < 1:
+        logging.error(f'No user specified, nothing to work with')
+        sys.exit(1)
 
     # Load other env
     exclude_groups = sorted(set(env('GITLAB_EXCLUDE_GROUPS').list()))
@@ -170,7 +174,7 @@ def main():
     # Check access level is correct
     if access_level not in levels:
         logging.error(f'Unsupporrted access level "{access_level}"')
-        sys.exit()
+        sys.exit(1)
     logging.info(f'For users will be set "{levels[access_level]}" access level')
 
     # Get groups
@@ -223,7 +227,7 @@ def main():
 
             except Exception as e:
                 logging.fatal(f'Error in "{group.full_path}" {e}')
-                sys.exit()
+                sys.exit(1)
 
     logging.info(
         f'Updated {success_u} users in {success_g} '
