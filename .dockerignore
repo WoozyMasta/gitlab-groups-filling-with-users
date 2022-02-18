@@ -1,0 +1,13 @@
+.git/
+.gitignore
+.vscode/
+.env
+.env.example
+README.md
+CHANGELOG.md
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class

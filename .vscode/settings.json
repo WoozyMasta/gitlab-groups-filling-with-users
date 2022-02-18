@@ -1,0 +1,9 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#a0640a",
+    "statusBar.foreground": "#30033d",
+    "statusBarItem.activeBackground": "#cf8008",
+    "statusBarItem.hoverBackground": "#a0700a"
+  },
+  "python.pythonPath": ".venv/bin/python"
+}

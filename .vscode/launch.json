@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "GitLab groups filling with users",
+      "type": "python",
+      "request": "launch",
+      "program": "app.py",
+      "console": "integratedTerminal",
+      "env": {
+        "LOG_LEVEL": "debug"
+      }
+    }
+  ]
+}
