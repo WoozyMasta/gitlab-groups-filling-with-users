@@ -116,17 +116,17 @@ def login_gitlab(gitlab_url: str, gitlab_token: str) -> object:
 
     try:
         gl = gitlab.Gitlab(url=gitlab_url, private_token=gitlab_token)
-        logging.info(f'Success logged in Gitlab "{gitlab_url}"')
         gl.auth()
-        return gl
     except gitlab.exceptions.GitlabAuthenticationError as e:
         logging.fatal(
-            'Can\'t login to GitLab "{gitlab_url}" {e.error_message}')
+            f'Can\'t login to GitLab "{gitlab_url}" {e.error_message}')
         sys.exit()
     except Exception as e:
         logging.fatal(f'Can\'t connect to GitLab "{gitlab_url}" {e}')
         sys.exit()
 
+    logging.info(f'Success logged in Gitlab "{gitlab_url}"')
+    return gl
 
 
 def main():
